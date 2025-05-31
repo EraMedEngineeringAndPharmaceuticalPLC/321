@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test Toggle</title>
+    <style>
+        section {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        nav a.active {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" onclick="showSection('home')">Home</a>
+        <a href="#" onclick="showSection('about')">About</a>
+        <a href="#" onclick="showSection('products')">Products</a>
+        <a href="#" onclick="showSection('resources')">Resources</a>
+        <a href="#" onclick="showSection('contact')">Contact</a>
+    </nav>
+
+    <section id="home">Home Section</section>
+    <section id="about">About Section</section>
+    <section id="products">Products Section</section>
+    <section id="resources">Resources Section</section>
+    <section id="contact">Contact Section</section>
+
+    <script>
+        const landingSections = ['home', 'about', 'contact'];
+
+        window.onload = function () {
+            showOnlyLandingSections();
+        };
+
+        function showOnlyLandingSections() {
+            const allSections = document.querySelectorAll('section');
+            allSections.forEach(section => {
+                section.style.display = landingSections.includes(section.id) ? 'block' : 'none';
+            });
+        }
+
+        function showSection(targetId) {
+            const allSections = document.querySelectorAll('section');
+            allSections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            const contact = document.getElementById('contact');
+            if (contact) contact.style.display = 'block';
+
+            const target = document.getElementById(targetId);
+            if (target) target.style.display = 'block';
+
+            // Optional active state
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`a[onclick*="${targetId}"]`);
+            if (activeLink) activeLink.classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>
